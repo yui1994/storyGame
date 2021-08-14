@@ -1,0 +1,24 @@
+body{
+    margin: 0;
+    background: url('./img/bg_01.png');
+}
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    min-width: 460px;
+    overflow: hidden;
+}
+
+#btnSt{
+    width: 15%;
+    color: rgb(70, 64, 18);
+    text-align: center;
+    cursor: pointer;
+    background: rgb(243, 200, 108);
+    padding: 2% ;
+    border-radius: 10px;
+    
+    border: #8f8f8f30 solid 0.5px;
+}

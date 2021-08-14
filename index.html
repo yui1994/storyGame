@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本小知識挑戰</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="./game.ico">
+
+    <!-- sweetalert2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/9.9.0/sweetalert2.all.js"
+        integrity="sha512-x24UyRDKCjcnqwrSaxX0BFvzgb/f3WvMEP9CAuIr2GphwDhz8hS9RGxTRJTl998B6GaVLUuaXURjGXyECJEh0w=="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css.css">
+    <style>
+        .swal2-popup {
+            background: #eee;
+        }
+
+        .swal2-content {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .swal2-styled.swal2-confirm {
+            background-color: rgb(100, 175, 237);
+            color: rgb(42, 88, 126);
+            font-weight: 600;
+        }
+
+        .swal2-styled.swal2-cancel {
+            background-color: rgb(81, 197, 139);
+            color: rgb(44, 116, 92);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div id="btnSt" onclick="start()"><b>開始遊戲</b></div>
+    </div>
+
+
+    <!-- <img src="https://fakeimg.pl/150x150/#999"> -->
+    <script>
+        //題目(文字)
+        var
+            ch0 = {
+                text: '如果現在有個機會讓你快閃日本24小時的話',
+                confirmButtonText: '好啊',
+                cancelButtonText: '少騙人',
+                showCancelButton: true, //讓cancel按鈕顯示在畫面上
+                allowOutsideClick: false,
+                imageUrl: './img/start.png',
+                imageHeight: 200,
+            },
+
+            q_1 = {
+                text: '出發前，領隊說這是只有對日本有所了解的人才有的機會，問了你日本現在的年號是？',
+                imageUrl: './img/q1.png',
+                imageHeight: 200,
+                confirmButtonText: '令和',
+                cancelButtonText: '德仁',
+                showCancelButton: true,
+                allowOutsideClick: false,
+            },
+
+            q_1n = {
+                // title: '錯!',
+                text: '領隊覺得分不清天皇和年號的人根本一點都不了解日本，決定把這個機會給其他人',
+                imageUrl: './img/q1N.png',
+                imageHeight: 200,
+                confirmButtonText: '錯失機會',
+            },
+            q_1y = {
+                title: '通過',
+                text: '領隊感受到你對日本的熱情，馬上帶你去搭機',
+                imageUrl: './img/q1Y.png', //令和大叔的圖
+                imageHeight: 200,
+                confirmButtonText: '還好平常出門都有帶護照',
+            },
+
+            q_2 = {
+                text: '一到日本，領隊就帶你去吃日本三大麵食其中之一的名店用餐。你吃的甚麼呢？',
+                imageUrl: './img/q2.png',
+                imageHeight: 200,
+                confirmButtonText: '強棒麵',
+                cancelButtonText: '蕎麥麵',
+                showCancelButton: true,
+                allowOutsideClick: false,
+            }
+
+        q_2n = {
+            text: '你吃著蕎麥麵卻跟老闆說他煮的麵線很好吃，老闆氣到把你們趕出去，所以領隊決定放生你',
+            imageUrl: './img/q2N.png',
+            imageHeight: 200,
+            confirmButtonText: '後悔自己不該多嘴',
+        }
+        q_2y = {
+            text: '因為你稱讚老闆蕎麥麵很好吃，所以老闆特別贈送你一張煙火大會的預約席的票',
+            imageUrl: './img/q2Y.png',
+            imageHeight: 200,
+            confirmButtonText: '來去看煙火',
+        }
+
+        q_3 = {
+            text: '看煙火前你決定要去神社參拜順便抽個籤，你要去哪個神社？',
+            imageUrl: './img/q3.png',
+            imageHeight: 200,
+            confirmButtonText: '淺草寺',
+            cancelButtonText: '明治神宮',
+            showCancelButton: true,
+            allowOutsideClick: false,
+        }
+
+        q_3n = {
+            text: '在淺草寺抽到大凶的你，遺失了煙火大會的票還跟領隊走散',
+            imageUrl: './img/q3N.png',
+            imageHeight: 200,
+            confirmButtonText: '找到領隊的時候24小時也差不多到了',
+
+        }
+        q_3y = {
+            text: '在明治神宮抽到的籤詩顯示旅行運大吉',
+            imageUrl: './img/q3Y.png',
+            imageHeight: 200,
+            confirmButtonText: '領隊也覺得你是一個幸運星',
+        }
+
+        q_4 = {
+            text: '看完煙火後，你覺得有點餓，要不要吃消夜呢？',
+            imageUrl: './img/q4.png',
+            imageHeight: 200,
+            confirmButtonText: '不吃', //藍
+            cancelButtonText: '吃', //紅
+            showCancelButton: true,
+            allowOutsideClick: false,
+        }
+
+        q_4n = {
+            text: '跟領隊吃串燒配生啤，喝到宿醉',
+            imageUrl: './img/q4N.png',
+            imageHeight: 200,
+            confirmButtonText: '隔天睡到差點搭不上飛機',
+        }
+        q_4y = {
+            text: '忍住沒有吃消夜的你回到飯店後發現飯店有提供免費的拉麵可以吃',
+            imageUrl: './img/q4Y.png',
+            imageHeight: 200,
+            confirmButtonText: '吃完拉麵身心靈都感到滿足',
+        }
+
+
+        q_5 = {
+            text: '起了一個大早，接下來還有12小時可以觀光，你要去哪裡？',
+            imageUrl: './img/q5.png',
+            imageHeight: 200,
+            confirmButtonText: '大阪', //藍
+            cancelButtonText: '仙台', //紅
+            showCancelButton: true,
+            allowOutsideClick: false,
+        }
+
+        q_5n = {
+            text: '到了大阪才發現有颱風接近，大風大雨根本不能觀光',
+            imageUrl: './img/q5N.png',
+            imageHeight: 200,
+            confirmButtonText: '最後只吃了大阪燒',
+
+        }
+        q_5y = {
+            text: '到了仙台發現正在舉行七夕祭，很開心的體驗了活動又吃了牛舌',
+            imageUrl: './img/q5Y.png',
+            imageHeight: 200,
+            confirmButtonText: '到了機場領隊還送你名產當伴手禮',
+        }
+
+
+        //題目(函式)
+        // if (result.dismiss !== 'cancel') // 選confirmButtonText
+        // if (result.dismiss === 'cancel') // 選cancelButtonText
+
+        //start
+        function start() {
+            Swal.fire(ch0)
+                .then(function (result) {
+                    if (result.dismiss !== 'cancel') {
+                        Swal.fire({
+                            text: '那就出發吧',
+                            confirmButtonText: 'GO',
+                            imageUrl: './img/startY.png',
+                            imageHeight: 200,
+                        }).then(qOne);
+                    } else {
+                        Swal.fire({
+                            title: '太可惜了',
+                            confirmButtonText: '下次再說',
+                            imageUrl: './img/startN.png',
+                            imageHeight: 200,
+                        })
+                    }
+                })
+        }
+
+        //Q1
+        function qOne() {
+            Swal.fire(q_1)
+                .then(function (result) {
+                    if (result.dismiss === 'cancel') {
+                        Swal.fire(q_1n)
+                    }
+                    else {
+                        Swal.fire(q_1y).then(q1y1)
+                    }
+                })
+        }
+
+        //Q1Y1->Q2
+        function q1y1() {
+            Swal.fire(q_2)
+                .then(function (result) {
+                    if (result.dismiss === 'cancel') {
+                        Swal.fire(q_2y)
+                            .then(q2y2)//Q2Y2
+                    } else {
+                        Swal.fire(q_2n)
+                    }
+                })
+        }
+
+
+        //Q2Y2->Q3
+        function q2y2() {
+            Swal.fire(q_3)
+                .then(function (result) {
+                    if (result.dismiss === 'cancel') {
+                        Swal.fire(q_3y)
+                            .then(q3y3)//Q3Y3
+                    } else {
+                        Swal.fire(q_3n)
+                    }
+                })
+        }
+
+        //Q3Y3->Q4
+        function q3y3() {
+            Swal.fire(q_4)
+                .then(function (result) {
+                    if (result.dismiss === 'cancel') {
+                        Swal.fire(q_4n)
+                    } else {
+                        Swal.fire(q_4y)
+                            .then(q4y4)//Q4Y4
+                    }
+                })
+        }
+
+        //Q4Y4->Q5
+        function q4y4() {
+            Swal.fire(q_5)
+                .then(function (result) {
+                    if (result.dismiss === 'cancel') {
+                        Swal.fire(q_5y)
+                            .then(sc5)
+                    } else {
+                        Swal.fire(q_5n)
+                    }
+                })
+        }
+
+        //story end
+        function sc5() {
+            Swal.fire({
+                title: '聽到鬧鐘聲音才發現這都是一場夢',
+                confirmButtonText: '今天也早點睡吧，夢裡甚麼都有',
+                imageUrl: './img/storyEnd.png',
+                imageHeight: 200,
+            })
+        }
+
+
+
+        start();
+
+
+    </script>
+</body>
+
+</html>
